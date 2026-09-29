@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="hosting-provider" content="Netlify">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>⚡ BLOG TRABALHO MEC ⚡</title>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔥</text></svg>">
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+
+<body>
+
+<div class="topo">
+    <div class="hell-player">
+        <div class="hell-title" id="player-title">
+            🔥 MUSIC PLAYER v1.0 🔥 (Johnny Theme)
+        </div>
+
+        <audio id="bgmusic" controls loop preload="auto">
+            <source id="audio-source" src="">
+            Seu navegador não suporta áudio.
+        </audio>
+
+        <div style="margin-top: 5px; display: flex; gap: 5px; justify-content: center;">
+            <button onclick="mudarMusica(-1)" style="cursor: pointer; padding: 2px 8px;">
+                Anterior
+            </button>
+
+            <button onclick="mudarMusica(1)" style="cursor: pointer; padding: 2px 8px;">
+                Próxima
+            </button>
+        </div>
+    </div>
+
+    <button class="btn-admin-toggle" onclick="toggleAdmin()">
+        ⚙ Painel de Postagem
+    </button>
+</div>
+
+<div id="adminPanel" class="admin-section">
+    <h3 class="texto-destaque" style="margin-top: 0;">
+        ⚡ Nova Postagem no Blog
+    </h3>
+
+    <input
+        type="text"
+        id="postTitleInput"
+        placeholder="Título da Postagem"
+        maxlength="100"
+    ><br>
+
+    <textarea
+        id="postContentInput"
+        rows="4"
+        placeholder="Escreva o conteúdo do post aqui..."
+        maxlength="2000"
+    ></textarea><br>
+
+    <button onclick="adicionarPostagem()">
+        Publicar Post! 🚀
+    </button>
+</div>
+
+<div class="container-3d">
+    <div class="titulo-3d">
+        ★ BEM-VINDO AO ESPAÇO DO JORGE ★
+    </div>
+</div>
+
+<center>
+    <p class="texto-destaque">
+        [ BLOG FEITO ]
+    </p>
+
+    <p class="texto-amarelo">
+        <i>Site updated em: 27 de Agosto de 2026</i>
+    </p>
+</center>
+
+<table>
+    <tr>
+        <td class="sidebar">
+            <h3 class="texto-amarelo">Perfil</h3>
+
+            <p><b>Nome:</b> Jorge</p>
+            <p><b>Idade:</b> 16 anos</p>
+            <p><b>Altura:</b> 1,73m</p>
+
+            <hr style="border-color: #ff3300;">
+
+            <h3 class="texto-amarelo">Humor Atual</h3>
+
+            <p>Ouvindo: Dare</p>
+            <p>Sentimento: tedio 🚀</p>
+
+            <hr style="border-color: #ff3300;">
+
+            <h3 class="texto-amarelo">Meus Gostos</h3>
+            <ul>
+                <li>🍳 Cozinhar</li>
+                <li>📺 Ver documentários</li>
+                <li>🌌 Olhar o céu</li>
+            </ul>
+
+            <hr style="border-color: #ff3300;">
+
+            <h3 class="texto-amarelo">Jogos Favoritos</h3>
+            <ul>
+                <li>Yandere Simulator</li>
+                <li>Minecraft</li>
+                <li>Roblox</li>
+                <li>Goat Simulator</li>
+                <li>GTA 3 </li>
+                <li>Fortnite</li>
+                <li>FNAF</li>
+                <li>Postal 2</li>
+                <li>Talking Tom</li>
+                <li>Among Us</li>
+            </ul>
+
+            <hr style="border-color: #ff3300;">
+
+            <h3 class="texto-amarelo">Livros Favoritos</h3>
+            <ul>
+                <li>Os 12 Macacos</li>
+                <li>Todos os livros de FNAF</li>
+                <li>Jantar Secreto</li>
+                <li>Ética</li>
+                <li>A Terra Assombrada por Demônios</li>
+                <li>Sherlock Holmes: os cães de baskerville</li>
+                <li>Origens: Catorze Bilhões de Anos de Evolução Cósmica</li>
+                <li>A Cinco Passos de Você</li>
+                <li>Alice no País das Maravilhas</li>
+            </ul>
+        </td>
+
+        <td id="blogPostsColumn">
+            <div class="post" style="text-align: center;">
+                ⏳ Carregando postagens...
+            </div>
+        </td>
+    </tr>
+</table>
+
+<br>
+
+<center>
+    <span class="retro-button">
+        📝 FEITO COM GEDIT E VS CODE
+    </span>
+
+    <span class="retro-button">
+        🌐 MELHOR EM INTERNET EXPLORER ah pera ele morreu
+    </span>
+</center>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyA0i21JOhytjg-H7BvTmgIx4szqDnT7PJM",
+        authDomain: "feed-6ba83.firebaseapp.com",
+        databaseURL: "https://feed-6ba83-default-rtdb.firebaseio.com",
+        projectId: "feed-6ba83",
+        storageBucket: "feed-6ba83.firebasestorage.app",
+        messagingSenderId: "517311621726",
+        appId: "1:517311621726:web:dece3f93272688660b62cf",
+        measurementId: "G-QMPF899YQS"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.database();
+    const auth = firebase.auth();
+
+    auth.signInAnonymously().catch((error) => {
+        console.log("Erro ao autenticar:", error);
+    });
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
